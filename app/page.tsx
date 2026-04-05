@@ -58,8 +58,41 @@ export default async function HomePage() {
         </p>
       </section>
 
-      {/* States grid */}
+      {/* Country selector */}
       <section className="max-w-5xl mx-auto px-4 py-12">
+        <h2 className="text-2xl font-bold text-stone-900 mb-2">Browse by Country</h2>
+        <p className="text-stone-500 mb-6">Select your country to find pottery and ceramics classes near you.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <a
+            href="#states"
+            className="flex items-center gap-4 border border-stone-200 rounded-xl px-5 py-4 hover:border-amber-400 hover:shadow-sm transition-all group"
+          >
+            <span className="text-3xl">🇺🇸</span>
+            <div>
+              <p className="font-semibold text-stone-800 group-hover:text-amber-700 transition-colors">United States</p>
+              <p className="text-xs text-stone-400 mt-0.5">{totalStudios.toLocaleString()} studios · {states.length} states</p>
+            </div>
+          </a>
+          {[
+            { flag: '🇨🇦', name: 'Canada' },
+            { flag: '🇦🇺', name: 'Australia' },
+          ].map(({ flag, name }) => (
+            <div
+              key={name}
+              className="flex items-center gap-4 border border-stone-200 border-dashed rounded-xl px-5 py-4 opacity-50 cursor-not-allowed"
+            >
+              <span className="text-3xl">{flag}</span>
+              <div>
+                <p className="font-semibold text-stone-600">{name}</p>
+                <p className="text-xs text-stone-400 mt-0.5">Coming soon</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* States grid */}
+      <section id="states" className="max-w-5xl mx-auto px-4 pb-12">
         <h2 className="text-2xl font-bold text-stone-900 mb-2">
           Find Pottery Classes Near You
         </h2>

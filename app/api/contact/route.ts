@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
 import { supabase } from '@/lib/supabase'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
@@ -21,10 +24,25 @@ export async function POST(req: NextRequest) {
 
   if (error) {
     console.error('Lead insert error:', error)
-    // Don't fail the request — email delivery will be added later
   }
 
-  // TODO: wire up Resend email delivery here
+  // Send lead notification email
+  await resend.emails.send({
+    from: 'ClayFinder Leads <leads@clayfinder.com>',
+    to: 'gerardmactal@germacdirectories.com',
+    subject: `New lead for ${studio}`,
+    text: [
+      `New lead submitted on ClayFinder`,
+      ``,
+      `Studio: ${studio}`,
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Phone: ${phone || 'Not provided'}`,
+      ``,
+      `Message:`,
+      message,
+    ].join('\n'),
+  })
 
   return NextResponse.json({ success: true })
 }
