@@ -56,6 +56,33 @@ export async function generateStaticParams() {
     }))
 }
 
+function buildJsonLd(listing: Listing) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: listing.name,
+    ...(listing.description && { description: listing.description }),
+    ...(listing.phone && { telephone: listing.phone }),
+    ...(listing.website && { url: listing.website }),
+    ...(listing.price_range && { priceRange: listing.price_range }),
+    address: {
+      '@type': 'PostalAddress',
+      ...(listing.full_address && { streetAddress: listing.full_address }),
+      ...(listing.city && { addressLocality: listing.city }),
+      ...(listing.state && { addressRegion: listing.state }),
+      ...(listing.postal_code && { postalCode: listing.postal_code }),
+      addressCountry: 'US',
+    },
+    ...(listing.latitude && listing.longitude && {
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: listing.latitude,
+        longitude: listing.longitude,
+      },
+    }),
+  }
+}
+
 function PriceRange({ value }: { value: string | null }) {
   if (!value) return null
   const filled = value.length
@@ -122,6 +149,10 @@ export default async function ListingPage({ params }: Props) {
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(listing)) }}
+      />
       {/* Breadcrumbs */}
       <nav className="text-sm text-stone-500 mb-6 flex items-center gap-1.5 flex-wrap">
         <Link href="/" className="hover:text-stone-800">Home</Link>
