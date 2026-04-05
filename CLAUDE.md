@@ -56,7 +56,6 @@ app/
           LeadForm.tsx                        ← Client-side lead capture form
   api/
     contact/route.ts                          ← Lead form handler — stores to Supabase leads table
-    debug/route.ts                            ← Debug endpoint (remove before launch)
 lib/
   supabase.ts                                 ← Supabase client (anon key)
   types.ts                                    ← Listing TypeScript interface
@@ -183,22 +182,44 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 
 ---
 
-## TODO Before / After Launch
+## Session Log
 
-### Before launch
-- [ ] Delete or gate `app/api/debug/route.ts`
-- [ ] Wire up Resend for lead email delivery
-- [ ] Deploy to Vercel + connect clayfinder.com domain (via Porkbun DNS)
-- [ ] Add Google Analytics
-- [ ] Submit sitemap to Google Search Console
+### 2026-04-05 — Launch session
+- Confirmed build passing cleanly (1,993 US listings, 35 states, 259+ cities, 835+ listing pages)
+- Deleted `app/api/debug/route.ts` (pre-launch cleanup)
+- Deployed to Vercel (mactalgarad/clayfinder repo, Hobby plan)
+- Fixed env var typo in Vercel dashboard: `NEXT_PUBLIC_SUPBASE_URL` → `NEXT_PUBLIC_SUPABASE_URL`
+- Added `clayfinder.com` and `www.clayfinder.com` as custom domains in Vercel
+- Updated Porkbun DNS: replaced ALIAS with A record (`@` → `216.198.79.1`), added CNAME (`www` → Vercel)
+- **clayfinder.com is now live**
 
-### After launch
-- [ ] Google Search Console: verify domain + submit sitemap
-- [ ] Run Ahrefs Webmaster Tools audit
-- [ ] Add LocalBusiness JSON-LD schema to listing pages
+---
+
+## TODO — Next Steps
+
+### Immediate (do now)
+- [ ] Wire up Resend for lead email delivery (`/api/contact` stores to Supabase but doesn't email)
+- [ ] Add Google Analytics (GA4 tracking code to `app/layout.tsx`)
+- [ ] Google Search Console: verify domain + submit sitemap (`/sitemap.xml`)
+
+### SEO & Technical (week 1)
+- [ ] Add LocalBusiness JSON-LD schema to listing pages (high priority per playbook)
+- [ ] Run SEO audit prompt: *"Do a thorough audit. Look at every web page I've created and activate your expert SEO lens..."*
+- [ ] Run indexation audit prompt: *"From an indexation and SEO perspective, check for any issues I might have missed..."*
+- [ ] Run Ahrefs Webmaster Tools audit (connect via Search Console) — export issues and fix
+
+### Data expansion
+- [ ] Run Canada (CA) data pipeline: scrape → enrich → import to Supabase
+- [ ] Run Australia (AU) data pipeline: scrape → enrich → import to Supabase
+- [ ] Verify website routing handles `country` field correctly for CA/AU listings
+- [ ] Update sitemap to include CA/AU pages after import
+
+### Growth (weeks 2–4+)
 - [ ] Design polish pass
+- [ ] Start backlink outreach (wait 2–3 weeks post-launch, check Search Console first)
 - [ ] User auth + business dashboard (claimed listings)
-- [ ] CA and AU data pipeline runs + import
+- [ ] Monitor Search Console Coverage report (3–5 days after sitemap submission)
+- [ ] Apply for display ads once traffic threshold is reached (Google AdSense first, Mediavine at ~50k sessions/month)
 
 ---
 
