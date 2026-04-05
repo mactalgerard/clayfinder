@@ -1,65 +1,113 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { Metadata } from 'next'
+import { supabase } from '@/lib/supabase'
+import { slugify } from '@/lib/slugify'
+import SearchBar from './components/SearchBar'
 
-export default function Home() {
+export const revalidate = 86400
+
+export const metadata: Metadata = {
+  title: 'Find Pottery and Ceramics Classes Near Me | ClayFinder',
+  description: 'Find pottery and ceramics classes near you. Browse local studios offering wheel throwing, hand building, open studio access, BYOB events, and more across the US.',
+}
+
+interface StateGroup {
+  state: string
+  count: number
+}
+
+async function getStates(): Promise<StateGroup[]> {
+  const { data } = await supabase
+    .from('listings')
+    .select('state')
+    .eq('country', 'US')
+    .not('state', 'is', null)
+
+  if (!data) return []
+
+  const counts: Record<string, number> = {}
+  for (const row of data) {
+    if (!row.state) continue
+    counts[row.state] = (counts[row.state] ?? 0) + 1
+  }
+
+  return Object.entries(counts)
+    .map(([state, count]) => ({ state, count }))
+    .sort((a, b) => b.count - a.count || a.state.localeCompare(b.state))
+}
+
+export default async function HomePage() {
+  const states = await getStates()
+  const totalStudios = states.reduce((sum, s) => sum + s.count, 0)
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main>
+      {/* Hero */}
+      <section className="bg-amber-50 border-b border-amber-100 px-4 py-16 text-center">
+        <h1 className="text-4xl sm:text-5xl font-bold text-stone-900 mb-3">
+          Find Pottery and Ceramics Classes Near Me
+        </h1>
+        <p className="text-stone-600 text-lg mb-8 max-w-xl mx-auto">
+          Discover local studios offering wheel throwing, hand building, open studio memberships, and more.
+        </p>
+        <div className="flex justify-center">
+          <SearchBar />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <p className="text-stone-400 text-sm mt-4">
+          {totalStudios.toLocaleString()} studios across {states.length} states
+        </p>
+      </section>
+
+      {/* States grid */}
+      <section className="max-w-5xl mx-auto px-4 py-12">
+        <h2 className="text-2xl font-bold text-stone-900 mb-2">
+          Find Pottery Classes Near You
+        </h2>
+        <p className="text-stone-500 mb-6">Browse ceramics studios and pottery classes by state.</p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          {states.map(({ state, count }) => (
+            <Link
+              key={state}
+              href={`/pottery-classes/${slugify(state)}`}
+              className="flex items-center justify-between border border-stone-200 rounded-xl px-4 py-3 hover:border-amber-400 hover:shadow-sm transition-all group"
+            >
+              <span className="font-medium text-stone-800 group-hover:text-amber-700 transition-colors text-sm">
+                {state}
+              </span>
+              <span className="text-xs text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full shrink-0 ml-2">
+                {count}
+              </span>
+            </Link>
+          ))}
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      {/* Why ClayFinder */}
+      <section className="bg-stone-50 border-t border-stone-200 px-4 py-12">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-stone-900 mb-8 text-center">
+            Find the Right Ceramics Studio Near You
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="text-3xl mb-2">🎯</div>
+              <h3 className="font-semibold text-stone-800 mb-1">Filter by what matters</h3>
+              <p className="text-stone-500 text-sm">Beginner-friendly, BYOB, date night, kids classes, open studio — find exactly what you need.</p>
+            </div>
+            <div>
+              <div className="text-3xl mb-2">📍</div>
+              <h3 className="font-semibold text-stone-800 mb-1">Local studios, curated</h3>
+              <p className="text-stone-500 text-sm">Every listing is a verified pottery or ceramics studio — no paint-your-own pottery or supply stores.</p>
+            </div>
+            <div>
+              <div className="text-3xl mb-2">🏺</div>
+              <h3 className="font-semibold text-stone-800 mb-1">Wheel throwing to hand building</h3>
+              <p className="text-stone-500 text-sm">Browse studios by class type, skill level, and price range to find your perfect fit.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
 }
