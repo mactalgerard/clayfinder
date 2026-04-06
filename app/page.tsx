@@ -36,8 +36,20 @@ async function getStates(): Promise<StateGroup[]> {
     .sort((a, b) => b.count - a.count || a.state.localeCompare(b.state))
 }
 
+async function getAuStats(): Promise<{ studios: number; states: number }> {
+  const { data } = await supabase
+    .from('listings')
+    .select('state')
+    .eq('country', 'AU')
+    .not('state', 'is', null)
+
+  if (!data) return { studios: 0, states: 0 }
+  const uniqueStates = new Set(data.map(r => r.state).filter(Boolean))
+  return { studios: data.length, states: uniqueStates.size }
+}
+
 export default async function HomePage() {
-  const states = await getStates()
+  const [states, auStats] = await Promise.all([getStates(), getAuStats()])
   const totalStudios = states.reduce((sum, s) => sum + s.count, 0)
 
   return (
@@ -73,21 +85,23 @@ export default async function HomePage() {
               <p className="text-xs text-stone-400 mt-0.5">{totalStudios.toLocaleString()} studios · {states.length} states</p>
             </div>
           </a>
-          {[
-            { flag: '🇨🇦', name: 'Canada' },
-            { flag: '🇦🇺', name: 'Australia' },
-          ].map(({ flag, name }) => (
-            <div
-              key={name}
-              className="flex items-center gap-4 border border-stone-200 border-dashed rounded-xl px-5 py-4 opacity-50 cursor-not-allowed"
-            >
-              <span className="text-3xl">{flag}</span>
-              <div>
-                <p className="font-semibold text-stone-600">{name}</p>
-                <p className="text-xs text-stone-400 mt-0.5">Coming soon</p>
-              </div>
+          <a
+            href="/pottery-classes/au"
+            className="flex items-center gap-4 border border-stone-200 rounded-xl px-5 py-4 hover:border-amber-400 hover:shadow-sm transition-all group"
+          >
+            <span className="text-3xl">🇦🇺</span>
+            <div>
+              <p className="font-semibold text-stone-800 group-hover:text-amber-700 transition-colors">Australia</p>
+              <p className="text-xs text-stone-400 mt-0.5">{auStats.studios.toLocaleString()} studios · {auStats.states} states</p>
             </div>
-          ))}
+          </a>
+          <div className="flex items-center gap-4 border border-stone-200 border-dashed rounded-xl px-5 py-4 opacity-50 cursor-not-allowed">
+            <span className="text-3xl">🇨🇦</span>
+            <div>
+              <p className="font-semibold text-stone-600">Canada</p>
+              <p className="text-xs text-stone-400 mt-0.5">Coming soon</p>
+            </div>
+          </div>
         </div>
       </section>
 

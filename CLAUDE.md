@@ -19,7 +19,7 @@ and monetize via display ads and featured listings.
 | Styling | Tailwind CSS + shadcn/ui (Nova/Radix preset) |
 | Database | Supabase (shared with pottery-directory pipeline) |
 | Hosting | Vercel |
-| Email (leads) | Resend (TODO — not yet wired up) |
+| Email (leads) | Resend (wired up — sends to gerardmactal@germacdirectories.com) |
 | Maps | Google Maps iframe embed |
 
 ---
@@ -29,6 +29,7 @@ and monetize via display ads and featured listings.
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+RESEND_API_KEY=your-resend-api-key
 ```
 
 Set these in `.env.local` for local dev and in Vercel dashboard for production.
@@ -55,7 +56,7 @@ app/
           page.tsx                            ← Listing page (main page type)
           LeadForm.tsx                        ← Client-side lead capture form
   api/
-    contact/route.ts                          ← Lead form handler — stores to Supabase leads table
+    contact/route.ts                          ← Lead form handler — stores to Supabase + emails via Resend
 lib/
   supabase.ts                                 ← Supabase client (anon key)
   types.ts                                    ← Listing TypeScript interface
@@ -153,7 +154,12 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 ### Lead Form
 - Client component (`LeadForm.tsx`) — POSTs to `/api/contact`
 - API route stores to Supabase `leads` table
-- Email delivery via Resend — **not yet implemented** (TODO)
+- Email delivery via Resend — sends notification to `gerardmactal@germacdirectories.com` from `leads@clayfinder.com`
+
+### LocalBusiness JSON-LD Schema
+- Added to all listing pages via `buildJsonLd()` in `app/pottery-classes/[state]/[city]/[slug]/page.tsx`
+- Fields: name, description, telephone, url, priceRange, address (PostalAddress), geo (GeoCoordinates)
+- Confirmed valid via Google Rich Results Test (2 valid items: LocalBusiness + Organization)
 
 ---
 
@@ -171,6 +177,9 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - Breadcrumbs on all listing and city pages with internal links up the hierarchy
 - `sitemap.xml` auto-generated from Supabase data (`app/sitemap.ts`)
 - `robots.txt` allows full crawl, blocks `/api/` (`app/robots.ts`)
+- LocalBusiness JSON-LD schema on all listing pages
+- Google Analytics (GA4): `G-HDM6FL7HQ6` — added to `app/layout.tsx`
+- Google Search Console: domain verified, sitemap submitted
 
 ### Meta Title Patterns
 | Page | Pattern |
@@ -193,20 +202,31 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - Updated Porkbun DNS: replaced ALIAS with A record (`@` → `216.198.79.1`), added CNAME (`www` → Vercel)
 - **clayfinder.com is now live**
 
+### 2026-04-05 — Post-launch session
+- Fixed `app/layout.tsx` metadata (was still "Create Next App" placeholder)
+- Added GA4 tracking (`G-HDM6FL7HQ6`) to `app/layout.tsx` — confirmed firing via realtime report
+- Added Google Search Console HTML verification meta tag — domain verified, sitemap submitted
+- Added LocalBusiness JSON-LD schema to listing pages — confirmed valid via Google Rich Results Test
+- Added Canada/Australia country selector to homepage — USA active, CA/AU greyed out "Coming soon"
+- Wired up Resend email delivery in `/api/contact/route.ts` — verified `clayfinder.com` domain in Resend, lead notifications send from `leads@clayfinder.com` to `gerardmactal@germacdirectories.com`
+- Added `RESEND_API_KEY` to `.env.local` (also needs adding to Vercel env vars before deploying)
+
 ---
 
 ## TODO — Next Steps
 
 ### Immediate (do now)
-- [ ] Wire up Resend for lead email delivery (`/api/contact` stores to Supabase but doesn't email)
-- [ ] Add Google Analytics (GA4 tracking code to `app/layout.tsx`)
-- [ ] Google Search Console: verify domain + submit sitemap (`/sitemap.xml`)
+- [x] Wire up Resend for lead email delivery
+- [x] Add Google Analytics (GA4)
+- [x] Google Search Console: verify domain + submit sitemap
+- [x] Add LocalBusiness JSON-LD schema to listing pages
+- [x] Add `RESEND_API_KEY` to Vercel environment variables + redeploy
 
 ### SEO & Technical (week 1)
-- [ ] Add LocalBusiness JSON-LD schema to listing pages (high priority per playbook)
 - [ ] Run SEO audit prompt: *"Do a thorough audit. Look at every web page I've created and activate your expert SEO lens..."*
 - [ ] Run indexation audit prompt: *"From an indexation and SEO perspective, check for any issues I might have missed..."*
 - [ ] Run Ahrefs Webmaster Tools audit (connect via Search Console) — export issues and fix
+- [ ] Monitor Search Console Coverage report (3–5 days after sitemap submission)
 
 ### Data expansion
 - [ ] Run Canada (CA) data pipeline: scrape → enrich → import to Supabase

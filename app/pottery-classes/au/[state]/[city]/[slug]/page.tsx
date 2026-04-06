@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
 import { slugify, deslugify } from '@/lib/slugify'
 import { Listing } from '@/lib/types'
-import LeadForm from './LeadForm'
+import LeadForm from '@/app/pottery-classes/[state]/[city]/[slug]/LeadForm'
 
 export const revalidate = 86400
 
@@ -21,7 +21,7 @@ async function getListing(state: string, city: string, slug: string): Promise<Li
     .select('*')
     .ilike('state', stateName)
     .ilike('city', cityName)
-    .eq('country', 'US')
+    .eq('country', 'AU')
 
   if (error || !data) return null
 
@@ -45,7 +45,7 @@ export async function generateStaticParams() {
   const { data } = await supabase
     .from('listings')
     .select('name, city, state')
-    .eq('country', 'US')
+    .eq('country', 'AU')
 
   return (data ?? [])
     .filter((l) => l.name && l.city && l.state)
@@ -71,7 +71,7 @@ function buildJsonLd(listing: Listing) {
       ...(listing.city && { addressLocality: listing.city }),
       ...(listing.state && { addressRegion: listing.state }),
       ...(listing.postal_code && { postalCode: listing.postal_code }),
-      addressCountry: 'US',
+      addressCountry: 'AU',
     },
     ...(listing.latitude && listing.longitude && {
       geo: {
@@ -114,10 +114,8 @@ function FeaturePill({ label }: { label: string }) {
 function parseHours(raw: string | null): Record<string, string> | null {
   if (!raw) return null
   try {
-    // OutScraper stores hours as Python dict with single quotes and list values
-    // e.g. {'Monday': ['9a.m.-5p.m.'], 'Tuesday': ['Closed']}
     const json = raw
-      .replace(/'/g, '"')                        // single → double quotes
+      .replace(/'/g, '"')
       .replace(/\[([^\]]*)\]/g, (_, v: string) => {
         const values = v.match(/"([^"]*)"/g)?.map(s => s.slice(1, -1))
         if (values && values.length > 0) return `"${values.join(' / ')}"`
@@ -129,7 +127,7 @@ function parseHours(raw: string | null): Record<string, string> | null {
   }
 }
 
-export default async function ListingPage({ params }: Props) {
+export default async function AuListingPage({ params }: Props) {
   const { state, city, slug } = await params
   const listing = await getListing(state, city, slug)
 
@@ -161,9 +159,11 @@ export default async function ListingPage({ params }: Props) {
       <nav className="text-sm text-stone-500 mb-6 flex items-center gap-1.5 flex-wrap">
         <Link href="/" className="hover:text-stone-800">Home</Link>
         <span>/</span>
-        <Link href={`/pottery-classes/${state}`} className="hover:text-stone-800">{stateLabel}</Link>
+        <Link href="/pottery-classes/au" className="hover:text-stone-800">Australia</Link>
         <span>/</span>
-        <Link href={`/pottery-classes/${state}/${city}`} className="hover:text-stone-800">{cityLabel}</Link>
+        <Link href={`/pottery-classes/au/${state}`} className="hover:text-stone-800">{stateLabel}</Link>
+        <span>/</span>
+        <Link href={`/pottery-classes/au/${state}/${city}`} className="hover:text-stone-800">{cityLabel}</Link>
         <span>/</span>
         <span className="text-stone-800">{listing.name}</span>
       </nav>
@@ -303,10 +303,10 @@ export default async function ListingPage({ params }: Props) {
 
       {/* Back links */}
       <div className="border-t border-stone-200 pt-6 flex gap-4 text-sm">
-        <Link href={`/pottery-classes/${state}/${city}`} className="text-amber-700 hover:underline">
+        <Link href={`/pottery-classes/au/${state}/${city}`} className="text-amber-700 hover:underline">
           ← All studios in {cityLabel}
         </Link>
-        <Link href={`/pottery-classes/${state}`} className="text-amber-700 hover:underline">
+        <Link href={`/pottery-classes/au/${state}`} className="text-amber-700 hover:underline">
           ← All studios in {stateLabel}
         </Link>
       </div>

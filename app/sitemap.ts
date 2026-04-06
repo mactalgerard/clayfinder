@@ -6,18 +6,9 @@ const BASE_URL = 'https://www.clayfinder.com'
 
 export const revalidate = 86400
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { data } = await supabase
-    .from('listings')
-    .select('name, city, state')
-    .eq('country', 'US')
-
-  const listings = data ?? []
-
-  // Deduplicate states
+function buildPages(listings: { name: string; city: string; state: string }[], prefix: string): MetadataRoute.Sitemap {
   const states = [...new Set(listings.map(l => l.state).filter(Boolean))]
 
-  // Deduplicate city+state pairs
   const cityMap = new Map<string, { city: string; state: string }>()
   for (const l of listings) {
     if (!l.city || !l.state) continue
@@ -25,41 +16,46 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (!cityMap.has(key)) cityMap.set(key, { city: l.city, state: l.state })
   }
 
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-  ]
-
-  // State pages
   const statePages: MetadataRoute.Sitemap = states.map(state => ({
-    url: `${BASE_URL}/pottery-classes/${slugify(state)}`,
+    url: `${BASE_URL}${prefix}/${slugify(state)}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,
   }))
 
-  // City pages
   const cityPages: MetadataRoute.Sitemap = [...cityMap.values()].map(({ city, state }) => ({
-    url: `${BASE_URL}/pottery-classes/${slugify(state)}/${slugify(city)}`,
+    url: `${BASE_URL}${prefix}/${slugify(state)}/${slugify(city)}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.7,
   }))
 
-  // Listing pages
   const listingPages: MetadataRoute.Sitemap = listings
     .filter(l => l.name && l.city && l.state)
     .map(l => ({
-      url: `${BASE_URL}/pottery-classes/${slugify(l.state)}/${slugify(l.city)}/${slugify(l.name)}`,
+      url: `${BASE_URL}${prefix}/${slugify(l.state)}/${slugify(l.city)}/${slugify(l.name)}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
     }))
 
-  return [...staticPages, ...statePages, ...cityPages, ...listingPages]
+  return [...statePages, ...cityPages, ...listingPages]
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [{ data: usData }, { data: auData }] = await Promise.all([
+    supabase.from('listings').select('name, city, state').eq('country', 'US'),
+    supabase.from('listings').select('name, city, state').eq('country', 'AU'),
+  ])
+
+  const staticPages: MetadataRoute.Sitemap = [
+    { url: BASE_URL, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE_URL}/pottery-classes/au`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+  ]
+
+  return [
+    ...staticPages,
+    ...buildPages(usData ?? [], '/pottery-classes'),
+    ...buildPages(auData ?? [], '/pottery-classes/au'),
+  ]
 }
