@@ -43,19 +43,23 @@ function buildPages(listings: { name: string; city: string; state: string }[], p
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [{ data: usData }, { data: auData }] = await Promise.all([
+  const [{ data: usData }, { data: auData }, { data: caData }] = await Promise.all([
     supabase.from('listings').select('name, city, state').eq('country', 'US'),
     supabase.from('listings').select('name, city, state').eq('country', 'AU'),
+    supabase.from('listings').select('name, city, state').eq('country', 'CA'),
   ])
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE_URL}/pottery-classes/us`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/pottery-classes/au`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/pottery-classes/ca`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
   ]
 
   return [
     ...staticPages,
     ...buildPages(usData ?? [], '/pottery-classes'),
     ...buildPages(auData ?? [], '/pottery-classes/au'),
+    ...buildPages(caData ?? [], '/pottery-classes/ca'),
   ]
 }

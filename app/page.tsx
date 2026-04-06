@@ -1,56 +1,60 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
-import { slugify } from '@/lib/slugify'
 import SearchBar from './components/SearchBar'
 
 export const revalidate = 86400
 
 export const metadata: Metadata = {
   title: 'Find Pottery and Ceramics Classes Near Me | ClayFinder',
-  description: 'Find pottery and ceramics classes near you. Browse local studios offering wheel throwing, hand building, open studio access, BYOB events, and more across the US.',
+  description: 'Find pottery and ceramics classes near you. Browse local studios offering wheel throwing, hand building, open studio access, BYOB events, and more across the US, Canada, and Australia.',
 }
 
-interface StateGroup {
-  state: string
-  count: number
+interface CountryStats {
+  studios: number
+  regions: number
 }
 
-async function getStates(): Promise<StateGroup[]> {
+async function getCountryStats(country: string): Promise<CountryStats> {
   const { data } = await supabase
     .from('listings')
     .select('state')
-    .eq('country', 'US')
+    .eq('country', country)
     .not('state', 'is', null)
 
-  if (!data) return []
-
-  const counts: Record<string, number> = {}
-  for (const row of data) {
-    if (!row.state) continue
-    counts[row.state] = (counts[row.state] ?? 0) + 1
-  }
-
-  return Object.entries(counts)
-    .map(([state, count]) => ({ state, count }))
-    .sort((a, b) => b.count - a.count || a.state.localeCompare(b.state))
+  if (!data) return { studios: 0, regions: 0 }
+  const uniqueRegions = new Set(data.map(r => r.state).filter(Boolean))
+  return { studios: data.length, regions: uniqueRegions.size }
 }
 
-async function getAuStats(): Promise<{ studios: number; states: number }> {
-  const { data } = await supabase
-    .from('listings')
-    .select('state')
-    .eq('country', 'AU')
-    .not('state', 'is', null)
-
-  if (!data) return { studios: 0, states: 0 }
-  const uniqueStates = new Set(data.map(r => r.state).filter(Boolean))
-  return { studios: data.length, states: uniqueStates.size }
+interface PopularCity {
+  label: string
+  href: string
 }
+
+const POPULAR_CITIES: PopularCity[] = [
+  { label: 'Los Angeles, CA', href: '/pottery-classes/california/los-angeles' },
+  { label: 'New York, NY', href: '/pottery-classes/new-york/new-york' },
+  { label: 'Chicago, IL', href: '/pottery-classes/illinois/chicago' },
+  { label: 'Houston, TX', href: '/pottery-classes/texas/houston' },
+  { label: 'Seattle, WA', href: '/pottery-classes/washington/seattle' },
+  { label: 'Denver, CO', href: '/pottery-classes/colorado/denver' },
+  { label: 'Portland, OR', href: '/pottery-classes/oregon/portland' },
+  { label: 'Austin, TX', href: '/pottery-classes/texas/austin' },
+  { label: 'Sydney, NSW', href: '/pottery-classes/au/new-south-wales/sydney' },
+  { label: 'Melbourne, VIC', href: '/pottery-classes/au/victoria/melbourne' },
+  { label: 'Toronto, ON', href: '/pottery-classes/ca/ontario/toronto' },
+  { label: 'Vancouver, BC', href: '/pottery-classes/ca/british-columbia/vancouver' },
+]
 
 export default async function HomePage() {
-  const [states, auStats] = await Promise.all([getStates(), getAuStats()])
-  const totalStudios = states.reduce((sum, s) => sum + s.count, 0)
+  const [us, au, ca] = await Promise.all([
+    getCountryStats('US'),
+    getCountryStats('AU'),
+    getCountryStats('CA'),
+  ])
+
+  const totalStudios = us.studios + au.studios + ca.studios
 
   return (
     <main>
@@ -66,7 +70,7 @@ export default async function HomePage() {
           <SearchBar />
         </div>
         <p className="text-stone-400 text-sm mt-4">
-          {totalStudios.toLocaleString()} studios across {states.length} states
+          {totalStudios.toLocaleString()} studios across the US, Canada, and Australia
         </p>
       </section>
 
@@ -76,13 +80,23 @@ export default async function HomePage() {
         <p className="text-stone-500 mb-6">Select your country to find pottery and ceramics classes near you.</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <a
-            href="#states"
+            href="/pottery-classes/us"
             className="flex items-center gap-4 border border-stone-200 rounded-xl px-5 py-4 hover:border-amber-400 hover:shadow-sm transition-all group"
           >
             <span className="text-3xl">🇺🇸</span>
             <div>
               <p className="font-semibold text-stone-800 group-hover:text-amber-700 transition-colors">United States</p>
-              <p className="text-xs text-stone-400 mt-0.5">{totalStudios.toLocaleString()} studios · {states.length} states</p>
+              <p className="text-xs text-stone-400 mt-0.5">{us.studios.toLocaleString()} studios · {us.regions} states</p>
+            </div>
+          </a>
+          <a
+            href="/pottery-classes/ca"
+            className="flex items-center gap-4 border border-stone-200 rounded-xl px-5 py-4 hover:border-amber-400 hover:shadow-sm transition-all group"
+          >
+            <span className="text-3xl">🇨🇦</span>
+            <div>
+              <p className="font-semibold text-stone-800 group-hover:text-amber-700 transition-colors">Canada</p>
+              <p className="text-xs text-stone-400 mt-0.5">{ca.studios.toLocaleString()} studios · {ca.regions} provinces</p>
             </div>
           </a>
           <a
@@ -92,38 +106,25 @@ export default async function HomePage() {
             <span className="text-3xl">🇦🇺</span>
             <div>
               <p className="font-semibold text-stone-800 group-hover:text-amber-700 transition-colors">Australia</p>
-              <p className="text-xs text-stone-400 mt-0.5">{auStats.studios.toLocaleString()} studios · {auStats.states} states</p>
+              <p className="text-xs text-stone-400 mt-0.5">{au.studios.toLocaleString()} studios · {au.regions} states</p>
             </div>
           </a>
-          <div className="flex items-center gap-4 border border-stone-200 border-dashed rounded-xl px-5 py-4 opacity-50 cursor-not-allowed">
-            <span className="text-3xl">🇨🇦</span>
-            <div>
-              <p className="font-semibold text-stone-600">Canada</p>
-              <p className="text-xs text-stone-400 mt-0.5">Coming soon</p>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* States grid */}
-      <section id="states" className="max-w-5xl mx-auto px-4 pb-12">
-        <h2 className="text-2xl font-bold text-stone-900 mb-2">
-          Find Pottery Classes Near You
-        </h2>
-        <p className="text-stone-500 mb-6">Browse ceramics studios and pottery classes by state.</p>
-
+      {/* Popular Cities */}
+      <section className="max-w-5xl mx-auto px-4 pb-12">
+        <h2 className="text-2xl font-bold text-stone-900 mb-2">Popular Cities</h2>
+        <p className="text-stone-500 mb-6">Jump straight to pottery studios in a major city.</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-          {states.map(({ state, count }) => (
+          {POPULAR_CITIES.map(({ label, href }) => (
             <Link
-              key={state}
-              href={`/pottery-classes/${slugify(state)}`}
-              className="flex items-center justify-between border border-stone-200 rounded-xl px-4 py-3 hover:border-amber-400 hover:shadow-sm transition-all group"
+              key={href}
+              href={href}
+              className="border border-stone-200 rounded-xl px-4 py-3 hover:border-amber-400 hover:shadow-sm transition-all group"
             >
               <span className="font-medium text-stone-800 group-hover:text-amber-700 transition-colors text-sm">
-                {state}
-              </span>
-              <span className="text-xs text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full shrink-0 ml-2">
-                {count}
+                {label}
               </span>
             </Link>
           ))}
