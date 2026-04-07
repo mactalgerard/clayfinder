@@ -81,13 +81,22 @@ export default async function AuStateePage({ params }: Props) {
       </nav>
 
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-3xl font-bold text-stone-900">
           Pottery Classes in {stateLabel}
         </h1>
-        <h2 className="text-stone-600 mt-2 text-base">
-          Find ceramics classes and pottery studios across {stateLabel} — {totalListings} studio{totalListings !== 1 ? 's' : ''} in {cities.length} cit{cities.length !== 1 ? 'ies' : 'y'}.
-        </h2>
+        <p className="text-stone-500 mt-2 text-sm">
+          {totalListings} studio{totalListings !== 1 ? 's' : ''} across {cities.length} cit{cities.length !== 1 ? 'ies' : 'y'}
+        </p>
+      </div>
+
+      {/* Intro */}
+      <div className="bg-stone-50 border border-stone-200 rounded-xl px-5 py-4 mb-8 text-stone-600 text-sm leading-relaxed">
+        <p>
+          Looking for pottery and ceramics classes in {stateLabel}, Australia? This page lists every studio
+          we track across the state or territory — from beginner wheel throwing classes to open studio memberships,
+          hand building workshops, and BYOB pottery nights. Select a city below to find ceramics studios near you.
+        </p>
       </div>
 
       {/* Cities grid */}

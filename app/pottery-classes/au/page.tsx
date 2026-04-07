@@ -76,6 +76,83 @@ export default async function AustraliaPage() {
         ))}
       </div>
 
+      {/* FAQs */}
+      <section className="mt-12 border-t border-stone-200 pt-10">
+        <h2 className="text-xl font-bold text-stone-900 mb-6">
+          Frequently Asked Questions — Pottery Classes in Australia
+        </h2>
+        <div className="space-y-5">
+          {[
+            {
+              q: 'What types of pottery classes can I find in Australia?',
+              a: 'Australian pottery studios offer wheel throwing, hand building, sculpting, and glazing classes. Many studios also run open studio sessions, beginner courses, BYOB pottery nights, date nights, kids classes, and private group events.',
+            },
+            {
+              q: 'Do I need experience to take a ceramics class in Australia?',
+              a: 'No prior experience is required for most ceramics classes in Australia. Studios listed on ClayFinder are generally beginner-friendly and provide all the tools, clay, and tuition you need to get started. Look for studios that specifically advertise beginner or drop-in classes.',
+            },
+            {
+              q: 'How much do pottery classes cost in Australia?',
+              a: 'Pricing varies by studio and class format. Introductory or drop-in sessions typically range from AUD $40–$90. Term-based courses often run AUD $200–$500. Open studio memberships are typically AUD $100–$250 per month. Most studios include clay and firing costs in their fees.',
+            },
+            {
+              q: 'What is open studio access at a pottery studio?',
+              a: 'Open studio access is a membership or pass that lets you use the studio\'s equipment — wheels, kilns, and tools — to work on your own projects outside of structured classes. It\'s ideal for people with some experience who want to practise at their own pace. Many Australian studios offer monthly open studio memberships.',
+            },
+          ].map(({ q, a }) => (
+            <div key={q} className="border border-stone-200 rounded-xl px-5 py-4">
+              <h3 className="font-semibold text-stone-800 mb-2">{q}</h3>
+              <p className="text-stone-600 text-sm leading-relaxed">{a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'What types of pottery classes can I find in Australia?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Australian pottery studios offer wheel throwing, hand building, sculpting, and glazing classes. Many studios also run open studio sessions, beginner courses, BYOB pottery nights, date nights, kids classes, and private group events.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Do I need experience to take a ceramics class in Australia?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'No prior experience is required for most ceramics classes in Australia. Studios are generally beginner-friendly and provide all tools, clay, and tuition needed to get started.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'How much do pottery classes cost in Australia?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Drop-in sessions typically range from AUD $40–$90. Term-based courses often run AUD $200–$500. Open studio memberships are typically AUD $100–$250 per month. Most studios include clay and firing costs in their fees.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What is open studio access at a pottery studio?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Open studio access is a membership or pass that lets you use the studio\'s equipment — wheels, kilns, and tools — to work on your own projects outside of structured classes. Many Australian studios offer monthly open studio memberships.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
       {/* Back to home */}
       <div className="border-t border-stone-200 pt-6 mt-10">
         <Link href="/" className="text-amber-700 hover:underline text-sm">

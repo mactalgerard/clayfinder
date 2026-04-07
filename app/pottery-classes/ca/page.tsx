@@ -76,6 +76,83 @@ export default async function CanadaPage() {
         ))}
       </div>
 
+      {/* FAQs */}
+      <section className="mt-12 border-t border-stone-200 pt-10">
+        <h2 className="text-xl font-bold text-stone-900 mb-6">
+          Frequently Asked Questions — Pottery Classes in Canada
+        </h2>
+        <div className="space-y-5">
+          {[
+            {
+              q: 'What types of pottery classes can I find in Canada?',
+              a: 'Canadian pottery studios offer wheel throwing, hand building, sculpting, and glazing classes. Many studios also run open studio sessions, beginner courses, BYOB pottery nights, date nights, kids classes, and private group bookings across provinces from BC to Ontario and beyond.',
+            },
+            {
+              q: 'Do I need experience to take a pottery class in Canada?',
+              a: 'No prior experience is required. Most Canadian pottery studios welcome absolute beginners and provide all the tools, clay, and instruction needed. Many offer beginner-focused courses or drop-in sessions where you can try wheel throwing or hand building for the first time.',
+            },
+            {
+              q: 'How much do pottery and ceramics classes cost in Canada?',
+              a: 'Pricing varies by studio and format. Introductory or drop-in sessions typically cost CAD $35–$80. Multi-week beginner courses often run CAD $150–$450. Open studio monthly memberships typically range from CAD $100–$220 per month. Clay and firing are usually included.',
+            },
+            {
+              q: 'What are BYOB pottery nights?',
+              a: 'BYOB pottery nights are social studio events where you bring your own drinks and enjoy a guided pottery session — usually wheel throwing or hand building — in a relaxed, group setting. They\'re popular for birthday parties, date nights, and group outings. Many Canadian studios host these evenings on a regular basis.',
+            },
+          ].map(({ q, a }) => (
+            <div key={q} className="border border-stone-200 rounded-xl px-5 py-4">
+              <h3 className="font-semibold text-stone-800 mb-2">{q}</h3>
+              <p className="text-stone-600 text-sm leading-relaxed">{a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'What types of pottery classes can I find in Canada?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Canadian pottery studios offer wheel throwing, hand building, sculpting, and glazing classes. Many studios also run open studio sessions, beginner courses, BYOB pottery nights, date nights, kids classes, and private group bookings.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Do I need experience to take a pottery class in Canada?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'No prior experience is required. Most Canadian pottery studios welcome absolute beginners and provide all tools, clay, and instruction needed. Many offer beginner-focused courses or drop-in sessions for first-timers.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'How much do pottery and ceramics classes cost in Canada?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Drop-in sessions typically cost CAD $35–$80. Multi-week beginner courses often run CAD $150–$450. Open studio monthly memberships typically range from CAD $100–$220 per month. Clay and firing are usually included.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What are BYOB pottery nights?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'BYOB pottery nights are social studio events where you bring your own drinks and enjoy a guided pottery session in a relaxed group setting. They\'re popular for birthday parties, date nights, and group outings, and are offered at many Canadian studios.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
       {/* Back to home */}
       <div className="border-t border-stone-200 pt-6 mt-10">
         <Link href="/" className="text-amber-700 hover:underline text-sm">

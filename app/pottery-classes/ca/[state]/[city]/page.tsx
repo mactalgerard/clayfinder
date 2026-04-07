@@ -83,16 +83,23 @@ export default async function CaCityPage({ params }: Props) {
       </nav>
 
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-3xl font-bold text-stone-900">
           Pottery Classes in {cityLabel}, {stateLabel}
         </h1>
-        <p className="text-stone-500 mt-2">
+        <p className="text-stone-500 mt-2 text-sm">
           {listings.length} studio{listings.length !== 1 ? 's' : ''} found
         </p>
-        <h2 className="text-stone-600 mt-3 text-base">
-          Find ceramics classes, wheel throwing studios, and pottery workshops in {cityLabel}.
-        </h2>
+      </div>
+
+      {/* Intro */}
+      <div className="bg-stone-50 border border-stone-200 rounded-xl px-5 py-4 mb-8 text-stone-600 text-sm leading-relaxed">
+        <p>
+          Browse pottery and ceramics studios in {cityLabel}, {stateLabel}. Whether you&apos;re a complete
+          beginner or an experienced ceramicist looking for open studio access, the studios below offer a range
+          of options — from wheel throwing classes and hand building workshops to BYOB pottery nights, kids
+          classes, and private event bookings. Click any studio to see hours, contact details, and to send an enquiry.
+        </p>
       </div>
 
       {/* Listings grid */}

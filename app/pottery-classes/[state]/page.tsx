@@ -75,17 +75,29 @@ export default async function StatePage({ params }: Props) {
       <nav className="text-sm text-stone-500 mb-6 flex items-center gap-1.5">
         <Link href="/" className="hover:text-stone-800">Home</Link>
         <span>/</span>
+        <Link href="/pottery-classes/us" className="hover:text-stone-800">United States</Link>
+        <span>/</span>
         <span className="text-stone-800">{stateLabel}</span>
       </nav>
 
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-3xl font-bold text-stone-900">
           Pottery Classes in {stateLabel}
         </h1>
-        <h2 className="text-stone-600 mt-2 text-base">
-          Find ceramics classes and pottery studios across {stateLabel} — {totalListings} studio{totalListings !== 1 ? 's' : ''} in {cities.length} cit{cities.length !== 1 ? 'ies' : 'y'}.
-        </h2>
+        <p className="text-stone-500 mt-2 text-sm">
+          {totalListings} studio{totalListings !== 1 ? 's' : ''} across {cities.length} cit{cities.length !== 1 ? 'ies' : 'y'}
+        </p>
+      </div>
+
+      {/* Intro */}
+      <div className="bg-stone-50 border border-stone-200 rounded-xl px-5 py-4 mb-8 text-stone-600 text-sm leading-relaxed">
+        <p>
+          Whether you&apos;re picking up a new hobby or looking for a local studio with open wheel time,
+          {' '}{stateLabel} has a range of pottery and ceramics studios to choose from. This page lists every
+          studio we track across the state — from beginner-friendly drop-in classes to open studio memberships,
+          wheel throwing workshops, hand building sessions, and more. Select a city below to browse studios near you.
+        </p>
       </div>
 
       {/* Cities grid */}

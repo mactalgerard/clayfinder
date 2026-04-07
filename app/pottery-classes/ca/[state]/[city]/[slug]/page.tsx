@@ -146,11 +146,29 @@ export default async function CaListingPage({ params }: Props) {
     listing.booking_required && 'Booking Required',
   ].filter(Boolean) as string[]
 
+  const BASE_URL = 'https://www.clayfinder.com'
+
   return (
     <main className="max-w-4xl mx-auto px-4 py-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(listing)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+              { '@type': 'ListItem', position: 2, name: 'Canada', item: `${BASE_URL}/pottery-classes/ca` },
+              { '@type': 'ListItem', position: 3, name: stateLabel, item: `${BASE_URL}/pottery-classes/ca/${state}` },
+              { '@type': 'ListItem', position: 4, name: cityLabel, item: `${BASE_URL}/pottery-classes/ca/${state}/${city}` },
+              { '@type': 'ListItem', position: 5, name: listing.name },
+            ],
+          }),
+        }}
       />
       {/* Breadcrumbs */}
       <nav className="text-sm text-stone-500 mb-6 flex items-center gap-1.5 flex-wrap">
