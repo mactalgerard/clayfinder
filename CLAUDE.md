@@ -3,7 +3,7 @@
 ## What This Project Is
 
 ClayFinder (clayfinder.com) is a niche directory website for pottery and ceramics studios
-across the US and Australia (Canada to follow). It surfaces enriched studio listings from
+across the US, Canada, and Australia. It surfaces enriched studio listings from
 a Supabase database populated by the `pottery-directory` data pipeline.
 
 The goal: rank for "pottery classes near me" and related keywords, generate leads for studios,
@@ -40,21 +40,23 @@ Set these in `.env.local` for local dev and in Vercel dashboard for production.
 
 ```
 app/
-  page.tsx                                    ← Homepage (hero + search + country/state grid)
+  page.tsx                                    ← Homepage (hero + search + 3-country selector + popular cities)
   layout.tsx                                  ← Root layout with Navbar
-  sitemap.ts                                  ← Auto-generated sitemap.xml from Supabase (US + AU)
+  sitemap.ts                                  ← Auto-generated sitemap.xml from Supabase (US + AU + CA)
   robots.ts                                   ← robots.txt (allows all, blocks /api/)
   components/
     Navbar.tsx                                ← Sticky top nav with ClayFinder logo
     SearchBar.tsx                             ← Client-side city autocomplete search
   pottery-classes/
+    us/
+      page.tsx                                ← US landing page — states grid
     [state]/
       page.tsx                                ← US state page — city grid
       [city]/
         page.tsx                              ← US city page — listing cards
         [slug]/
           page.tsx                            ← US listing page (main page type)
-          LeadForm.tsx                        ← Client-side lead capture form (shared with AU)
+          LeadForm.tsx                        ← Client-side lead capture form (shared across all countries)
     au/
       page.tsx                                ← Australia landing page — states/territories grid
       [state]/
@@ -62,7 +64,15 @@ app/
         [city]/
           page.tsx                            ← AU city page — listing cards
           [slug]/
-            page.tsx                          ← AU listing page (reuses LeadForm from US route)
+            page.tsx                          ← AU listing page
+    ca/
+      page.tsx                                ← Canada landing page — provinces grid
+      [state]/
+        page.tsx                              ← CA province page — city grid
+        [city]/
+          page.tsx                            ← CA city page — listing cards
+          [slug]/
+            page.tsx                          ← CA listing page
   api/
     contact/route.ts                          ← Lead form handler — stores to Supabase + emails via Resend
 lib/
@@ -77,13 +87,18 @@ lib/
 
 ```
 /                                             ← Homepage
+/pottery-classes/us/                          ← US landing page (states grid)
 /pottery-classes/[state]/                     ← US state page (e.g. /pottery-classes/california)
 /pottery-classes/[state]/[city]/              ← US city page (e.g. /pottery-classes/california/los-angeles)
 /pottery-classes/[state]/[city]/[slug]/       ← US listing page
-/pottery-classes/au/                          ← Australia landing page
+/pottery-classes/au/                          ← Australia landing page (states grid)
 /pottery-classes/au/[state]/                  ← AU state page (e.g. /pottery-classes/au/new-south-wales)
 /pottery-classes/au/[state]/[city]/           ← AU city page
 /pottery-classes/au/[state]/[city]/[slug]/    ← AU listing page
+/pottery-classes/ca/                          ← Canada landing page (provinces grid)
+/pottery-classes/ca/[state]/                  ← CA province page (e.g. /pottery-classes/ca/ontario)
+/pottery-classes/ca/[state]/[city]/           ← CA city page
+/pottery-classes/ca/[state]/[city]/[slug]/    ← CA listing page
 ```
 
 Slugs are generated with `slugify()` — lowercase, hyphens, alphanumeric only.
@@ -96,7 +111,10 @@ Lookups use Supabase `ilike` on state + city, then JS `.find()` by slug match on
 All listing data comes from the `listings` table in Supabase, populated by the
 `pottery-directory` pipeline. The table has a composite PK: `(name, postal_code, country)`.
 
-**Current data:** 1,993 US listings as of 2026-04-05, 67.5% enriched. ~359 AU listings imported as of 2026-04-06 — data quality issues present (mixed US state names, abbreviated AU state names); AU pipeline needs a re-run and clean import before AU goes to production.
+**Current data:**
+- US: 1,993 listings as of 2026-04-05, 67.5% enriched
+- AU: ~359 listings imported as of 2026-04-06 — data quality issues (mixed US state names, abbreviated AU state names); pipeline needs re-run before AU is production-ready
+- CA: imported as of 2026-04-07 — routing live, data quality unknown
 
 Key fields used by the website:
 
@@ -173,9 +191,9 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - Email delivery via Resend — sends notification to `gerardmactal@germacdirectories.com` from `leads@clayfinder.com`
 
 ### LocalBusiness JSON-LD Schema
-- Added to all listing pages via `buildJsonLd()` in both US and AU listing page files
+- Added to all listing pages via `buildJsonLd()` in each country's listing page file
 - Fields: name, description, telephone, url, priceRange, address (PostalAddress), geo (GeoCoordinates)
-- `addressCountry` is hardcoded per route: `'US'` for US pages, `'AU'` for AU pages
+- `addressCountry` is hardcoded per route: `'US'`, `'AU'`, or `'CA'`
 - Confirmed valid via Google Rich Results Test (2 valid items: LocalBusiness + Organization)
 
 ---
@@ -236,6 +254,13 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - Fixed `parseHours()` bug in both listing pages: multi-slot days (e.g. `['10AM-2PM', '6-8:30PM']`) were producing invalid JSON and falling back to raw string display; now joined with ` / `
 - Identified AU data quality issues: some listings have US state names or abbreviated AU state names — AU pipeline needs re-run and clean import before AU should be promoted
 
+### 2026-04-07 — Canada launch + homepage rework session
+- Added full CA routing under `/pottery-classes/ca/` — 4 new pages: CA landing, CA province, CA city, CA listing (mirrors AU pattern exactly); `addressCountry: 'CA'` in JSON-LD
+- Added `/pottery-classes/us/` landing page (states grid) to give US symmetric URL structure with AU and CA
+- Homepage redesigned: removed US states grid, replaced with 3-country selector (US/CA/AU all live with real counts) + Popular Cities section (8 US + 2 AU + 2 CA cities linking directly to city pages)
+- Sitemap updated: includes `/pottery-classes/us/`, `/pottery-classes/ca/`, and all CA state/city/listing URLs
+- Discussed homepage content — decided against history/why-pottery editorial; Popular Cities preferred as it targets search intent and adds SEO-valuable internal links
+
 ---
 
 ## TODO — Next Steps
@@ -255,10 +280,11 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 
 ### Data expansion
 - [x] AU website routing built and live
-- [x] Sitemap includes AU pages
+- [x] CA website routing built and live
+- [x] Sitemap includes US, AU, and CA pages
+- [x] All 3 country cards active on homepage
 - [ ] Re-run AU data pipeline: fix state name inconsistencies (mixed US states, abbreviated names) → clean import to Supabase → redeploy
-- [ ] Run Canada (CA) data pipeline: scrape → enrich → import to Supabase
-- [ ] Build CA routing (mirror AU pattern under `/pottery-classes/ca/`) + activate CA homepage card
+- [ ] Audit CA data quality — check for similar state name issues as AU
 
 ### Growth (weeks 2–4+)
 - [ ] Design polish pass
