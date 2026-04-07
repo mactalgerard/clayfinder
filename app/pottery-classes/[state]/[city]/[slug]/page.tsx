@@ -38,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: listing.description
       ? listing.description.slice(0, 160)
       : `Find pottery and ceramics classes at ${listing.name} in ${listing.city}, ${listing.state}.`,
+    alternates: { canonical: `https://www.clayfinder.com/pottery-classes/${state}/${city}/${slug}` },
   }
 }
 
@@ -276,12 +277,22 @@ export default async function ListingPage({ params }: Props) {
       </div>
 
       {/* Description */}
-      {listing.description && (
-        <div className="mb-10">
-          <h2 className="text-lg font-semibold text-stone-800 mb-2">About</h2>
-          <p className="text-stone-600 leading-relaxed">{listing.description}</p>
-        </div>
-      )}
+      <div className="mb-10">
+        <h2 className="text-lg font-semibold text-stone-800 mb-2">About</h2>
+        <p className="text-stone-600 leading-relaxed">
+          {listing.description ?? (
+            <>
+              {listing.name} is a pottery and ceramics studio located in {cityLabel}, {stateLabel}.
+              {listing.class_types?.length
+                ? ` Classes offered include ${listing.class_types.join(', ')}.`
+                : ' The studio offers pottery and ceramics classes for a range of skill levels.'}
+              {listing.phone
+                ? ` Call ${listing.phone} to enquire about class schedules, availability, and pricing.`
+                : ' Contact the studio directly for class schedules and availability.'}
+            </>
+          )}
+        </p>
+      </div>
 
       {/* Class Types & Skill Levels */}
       {(listing.class_types?.length || listing.skill_levels?.length) && (

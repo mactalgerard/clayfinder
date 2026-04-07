@@ -8,6 +8,7 @@ export const revalidate = 86400
 export const metadata: Metadata = {
   title: 'Find Pottery and Ceramics Classes Near Me | ClayFinder',
   description: 'Find pottery and ceramics classes near you. Browse local studios offering wheel throwing, hand building, open studio access, BYOB events, and more across the US, Canada, and Australia.',
+  alternates: { canonical: 'https://www.clayfinder.com' },
 }
 
 interface CountryStats {

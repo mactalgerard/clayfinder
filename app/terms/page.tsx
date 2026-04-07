@@ -4,6 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Terms of Service | ClayFinder',
   description: 'Terms of service for ClayFinder — the pottery and ceramics class directory.',
+  alternates: { canonical: 'https://www.clayfinder.com/terms' },
 }
 
 export default function TermsPage() {

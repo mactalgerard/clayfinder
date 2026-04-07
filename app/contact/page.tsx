@@ -4,6 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Contact ClayFinder | Pottery & Ceramics Directory',
   description: 'Get in touch with ClayFinder. Report an inaccurate listing, suggest a studio, or ask a general question.',
+  alternates: { canonical: 'https://www.clayfinder.com/contact' },
 }
 
 export default function ContactPage() {

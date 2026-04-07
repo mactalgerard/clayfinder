@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Pottery Classes in ${cityLabel}, ${stateLabel} | ClayFinder`,
     description: `Find pottery and ceramics classes in ${cityLabel}, ${stateLabel}. Browse local studios offering wheel throwing, hand building, open studio access, and more.`,
+    alternates: { canonical: `https://www.clayfinder.com/pottery-classes/ca/${state}/${city}` },
   }
 }
 
@@ -106,7 +107,7 @@ export default async function CaCityPage({ params }: Props) {
       <div className="space-y-4">
         {listings.map((listing) => (
           <Link
-            key={listing.name}
+            key={`${listing.name}-${listing.postal_code}`}
             href={`/pottery-classes/ca/${state}/${city}/${slugify(listing.name)}`}
             className="block border border-stone-200 rounded-xl p-5 hover:border-amber-400 hover:shadow-sm transition-all group"
           >

@@ -4,6 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'About ClayFinder | Pottery & Ceramics Class Directory',
   description: 'ClayFinder is a directory of pottery and ceramics studios across the US, Canada, and Australia. Find local classes, workshops, and open studio memberships near you.',
+  alternates: { canonical: 'https://www.clayfinder.com/about' },
 }
 
 export default function AboutPage() {

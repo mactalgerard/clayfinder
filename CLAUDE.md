@@ -196,6 +196,33 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - `addressCountry` is hardcoded per route: `'US'`, `'AU'`, or `'CA'`
 - Confirmed valid via Google Rich Results Test (2 valid items: LocalBusiness + Organization)
 
+### BreadcrumbList JSON-LD Schema
+- Added to all listing pages (US, AU, CA) alongside LocalBusiness schema
+- Enables breadcrumb rich results in SERPs
+- US listing breadcrumb: Home → United States → State → City → Listing
+- AU listing breadcrumb: Home → Australia → State → City → Listing
+- CA listing breadcrumb: Home → Canada → Province → City → Listing
+
+### FAQPage JSON-LD Schema
+- Added to US, AU, and CA landing pages (`/pottery-classes/us`, `/pottery-classes/au`, `/pottery-classes/ca`)
+- 4 FAQs per page, country-specific questions (pricing in local currency, relevant terminology)
+- Targets "People Also Ask" rich results in SERPs
+
+### Trust Pages + Footer
+- `app/about/page.tsx`, `app/contact/page.tsx`, `app/privacy/page.tsx`, `app/terms/page.tsx`
+- `app/components/Footer.tsx` — sitewide footer with links to all trust pages + country browse links
+- All four pages included in `app/sitemap.ts`
+- Contact email: `hello@clayfinder.com`
+
+### Thin Content Fix
+- All state/province pages (US, AU, CA): added intro paragraph using keyword cluster
+- All city pages (US, AU, CA): added intro paragraph with keyword cluster
+- Fixed misused `<h2>` subtitle tags on state/city pages (downgraded to `<p>`)
+
+### Breadcrumb Hierarchy Fix
+- US state, city, and listing pages now include "United States" as intermediate breadcrumb step
+- Consistent with AU (`Home → Australia → State → ...`) and CA (`Home → Canada → Province → ...`) patterns
+
 ---
 
 ## SEO Foundations
@@ -260,37 +287,48 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - Homepage redesigned: removed US states grid, replaced with 3-country selector (US/CA/AU all live with real counts) + Popular Cities section (8 US + 2 AU + 2 CA cities linking directly to city pages)
 - Sitemap updated: includes `/pottery-classes/us/`, `/pottery-classes/ca/`, and all CA state/city/listing URLs
 - Discussed homepage content — decided against history/why-pottery editorial; Popular Cities preferred as it targets search intent and adds SEO-valuable internal links
+- AU and CA data quality issues fixed (pipeline re-run completed)
+
+### 2026-04-07 — SEO foundations session
+- Added trust pages: About, Contact, Privacy Policy, Terms of Service + sitewide footer with links
+- Added trust pages to sitemap (`app/sitemap.ts`)
+- Added intro/body copy to all state and city hub pages across US, AU, CA (thin content fix)
+- Fixed misused `<h2>` subtitle tags on state/city pages
+- Added FAQPage JSON-LD schema + FAQ sections to US, AU, CA landing pages (4 country-specific FAQs each)
+- Added BreadcrumbList JSON-LD schema to all listing pages (US, AU, CA)
+- Fixed US breadcrumb hierarchy to include "United States" intermediate step
+- Created `scripts/seo_audit.py` — DataForSEO On-Page API audit script (~$0.75–$1.50/run, 500 pages)
+- DataForSEO audit script run; results pending
 
 ---
 
 ## TODO — Next Steps
 
-### Immediate (do now)
+### Immediate (done)
 - [x] Wire up Resend for lead email delivery
 - [x] Add Google Analytics (GA4)
 - [x] Google Search Console: verify domain + submit sitemap
 - [x] Add LocalBusiness JSON-LD schema to listing pages
 - [x] Add `RESEND_API_KEY` to Vercel environment variables + redeploy
+- [x] Add trust pages (About, Contact, Privacy, ToS) + sitewide footer
+- [x] Fix thin content: add intro copy to all state and city hub pages
+- [x] Add FAQPage schema + FAQ sections to US, AU, CA landing pages
+- [x] Add BreadcrumbList schema to all listing pages
+- [x] Fix US breadcrumb hierarchy
+- [x] AU and CA data quality fixed (pipeline re-run done)
 
-### SEO & Technical (week 1)
-- [ ] Run SEO audit prompt: *"Do a thorough audit. Look at every web page I've created and activate your expert SEO lens..."*
-- [ ] Run indexation audit prompt: *"From an indexation and SEO perspective, check for any issues I might have missed..."*
-- [ ] Run Ahrefs Webmaster Tools audit (connect via Search Console) — export issues and fix
+### SEO & Technical (in progress / next)
+- [ ] Review DataForSEO audit report (`scripts/seo_audit_report.txt`) — paste results into Claude Code to fix issues
 - [ ] Monitor Search Console Coverage report (3–5 days after sitemap submission)
-
-### Data expansion
-- [x] AU website routing built and live
-- [x] CA website routing built and live
-- [x] Sitemap includes US, AU, and CA pages
-- [x] All 3 country cards active on homepage
-- [ ] Re-run AU data pipeline: fix state name inconsistencies (mixed US states, abbreviated names) → clean import to Supabase → redeploy
-- [ ] Audit CA data quality — check for similar state name issues as AU
+- [ ] Verify FAQPage and BreadcrumbList schema via Google Rich Results Test
+- [ ] Deploy all changes to Vercel
 
 ### Growth (weeks 2–4+)
+- [ ] Start backlink outreach (2–3 weeks post-launch, after checking Search Console for early rankings)
+  - Strategy: link swaps with competing directories
+  - Reddit mentions: r/Pottery, r/Ceramics
 - [ ] Design polish pass
-- [ ] Start backlink outreach (wait 2–3 weeks post-launch, check Search Console first)
-- [ ] User auth + business dashboard (claimed listings)
-- [ ] Monitor Search Console Coverage report (3–5 days after sitemap submission)
+- [ ] User auth + business dashboard (claimed listings — natural upsell once leads flowing)
 - [ ] Apply for display ads once traffic threshold is reached (Google AdSense first, Mediavine at ~50k sessions/month)
 
 ---

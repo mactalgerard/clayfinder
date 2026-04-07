@@ -8,6 +8,7 @@ export const revalidate = 86400
 export const metadata: Metadata = {
   title: 'Pottery Classes in the United States | ClayFinder',
   description: 'Find pottery and ceramics classes across the United States. Browse local studios offering wheel throwing, hand building, open studio memberships, and more.',
+  alternates: { canonical: 'https://www.clayfinder.com/pottery-classes/us' },
 }
 
 interface StateGroup {

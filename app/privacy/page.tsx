@@ -4,6 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Privacy Policy | ClayFinder',
   description: 'Privacy policy for ClayFinder — how we collect, use, and protect your information.',
+  alternates: { canonical: 'https://www.clayfinder.com/privacy' },
 }
 
 export default function PrivacyPage() {

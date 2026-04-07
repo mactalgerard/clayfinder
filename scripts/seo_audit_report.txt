@@ -1,0 +1,227 @@
+======================================================================
+ClayFinder — DataForSEO On-Page SEO Audit
+Generated: 2026-04-07 15:31
+Target: https://www.clayfinder.com
+======================================================================
+
+SITE SUMMARY
+----------------------------------------
+  Pages crawled:       N/A
+  Internal links:      N/A
+  Broken links:        N/A
+  Non-indexable pages: N/A
+
+ISSUE BREAKDOWN (pages affected)
+----------------------------------------
+  Broken pages                             3
+  Low content / thin pages                 497
+  Title too long (>60 chars)               199
+  Title too short (<30 chars)              2
+  Not HTTPS                                500
+
+PAGES WITH ISSUES (top 50 flagged)
+----------------------------------------
+
+  https://www.clayfinder.com/pottery-classes/au/victoria/melbourne/national-gallery-of-victoria
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/au/victoria/melbourne/terrapotter-studios
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/caf-au-clay-pottery-studio-and-caf
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/chu-chu-chinatown
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/claymates-ceramics-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/claytek-studios-inc
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/community-clay-inc
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/grog-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/kate-metten-ceramics
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/kingsmill-studio-pottery
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/meg-hubert-ceramics
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/mitra-mahmoodi-ceramics
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/mudlab-pottery
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/mudpie-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/myriad-ceramics
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/one-percent-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/outform-ceramics-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/pleasant-pottery-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/pot-spot-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/pottery-hide-ceramic-works
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/studio-fundamentals
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/summer-skool
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/u-paint-i-fire
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/ugly-potters
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/vancouver-ceramics-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/vancouver-ceramics-studio-mount-pleasant
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/british-columbia/vancouver/woodland-pottery
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/4cats-arts-studio-the-beaches
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/al-green-sculpture-studio-school
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/artventures-toronto
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/chris-rookwood-pottery
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/chromatic-earth-pottery
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/clay-design-group
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/clay-with-me-pottery-studio-dundas-west
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/clayart-studios-pottery-college
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/craft-design-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/create-art-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/creations-art-and-pottery-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/creative-clay-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/crock-a-doodle-toronto-eastside
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/dex-terity-lab
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/dish-gallery-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/feldspar-ceramics
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/gardiner-museum
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/heart-pottery-studios
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/inspirations-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/kitte-club-ceramics-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, https_to_http_links, has_render_blocking_resources, low_content_rate, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/marty-gross-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/mima-ceramics-studio-and-showroom
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+  https://www.clayfinder.com/pottery-classes/ca/ontario/toronto/mono-art-studio
+  Status: 200
+  Issues: is_www, is_https, has_html_doctype, canonical, has_render_blocking_resources, low_content_rate, low_character_count, title_too_long, seo_friendly_url, frame, seo_friendly_url_characters_check, seo_friendly_url_dynamic_check, seo_friendly_url_keywords_check, seo_friendly_url_relative_length_check
+
+======================================================================
+END OF REPORT
+======================================================================

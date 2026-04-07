@@ -43,6 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Pottery Classes in ${stateLabel} | ClayFinder`,
     description: `Find pottery and ceramics classes across ${stateLabel}. Browse studios by city offering wheel throwing, hand building, open studio memberships, and more.`,
+    alternates: { canonical: `https://www.clayfinder.com/pottery-classes/${state}` },
   }
 }
 
