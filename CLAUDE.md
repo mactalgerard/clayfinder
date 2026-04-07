@@ -298,7 +298,12 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - Added BreadcrumbList JSON-LD schema to all listing pages (US, AU, CA)
 - Fixed US breadcrumb hierarchy to include "United States" intermediate step
 - Created `scripts/seo_audit.py` — DataForSEO On-Page API audit script (~$0.75–$1.50/run, 500 pages)
-- DataForSEO audit script run; results pending
+- Ran DataForSEO audit; fixed real issues:
+  - Added `alternates.canonical` to all 17 page types (was missing entirely — Next.js does not auto-generate canonicals without this)
+  - Added fallback description to listing pages without a database description (built from name, city, class types, phone)
+  - Fixed duplicate React key warning on city pages — changed `key={listing.name}` to `key={listing.name + postal_code}` to handle studios with identical names in the same city
+- Ignored false positives from audit: `is_https`, `is_www`, `has_html_doctype`, `has_render_blocking_resources`, `frame`, `https_to_http_links`, `seo_friendly_url` variants
+- `title_too_long` (199 pages) — intentionally left; Google truncates SERP display but still uses full title for ranking
 
 ---
 
@@ -318,7 +323,7 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - [x] AU and CA data quality fixed (pipeline re-run done)
 
 ### SEO & Technical (in progress / next)
-- [ ] Review DataForSEO audit report (`scripts/seo_audit_report.txt`) — paste results into Claude Code to fix issues
+- [x] Review DataForSEO audit report and fix real issues (canonical tags, thin content, duplicate keys)
 - [ ] Monitor Search Console Coverage report (3–5 days after sitemap submission)
 - [ ] Verify FAQPage and BreadcrumbList schema via Google Rich Results Test
 - [ ] Deploy all changes to Vercel
