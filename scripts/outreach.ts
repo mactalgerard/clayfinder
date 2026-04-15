@@ -154,11 +154,24 @@ async function main() {
 
   console.log(`\nDone. Sent: ${sent} | Failed: ${failed}`)
   const remaining = studios.length - (OFFSET + batch.length)
-  if (remaining > 0) {
+  const nextCommand = remaining > 0
+    ? `npx tsx scripts/outreach.ts --offset=${OFFSET + BATCH_SIZE}`
+    : null
+
+  if (nextCommand) {
     console.log(`Remaining: ${remaining} studios — run tomorrow with --offset=${OFFSET + BATCH_SIZE}`)
   } else {
     console.log('All studios have been contacted.')
   }
+
+  // Append to log file
+  const logPath = path.resolve(__dirname, 'outreach_log.txt')
+  const date = new Date().toISOString().slice(0, 10)
+  const logLine = nextCommand
+    ? `[${date}] Sent: ${sent} | Failed: ${failed} | Offset: ${OFFSET}\nNext run: ${nextCommand}\n`
+    : `[${date}] Sent: ${sent} | Failed: ${failed} | Offset: ${OFFSET}\nAll studios contacted.\n`
+  fs.appendFileSync(logPath, '\n' + logLine)
+  console.log(`\nLogged to scripts/outreach_log.txt`)
 }
 
 main()

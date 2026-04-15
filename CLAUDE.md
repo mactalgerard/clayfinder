@@ -289,6 +289,21 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 - Discussed homepage content — decided against history/why-pottery editorial; Popular Cities preferred as it targets search intent and adds SEO-valuable internal links
 - AU and CA data quality issues fixed (pipeline re-run completed)
 
+### 2026-04-12 — Search Console, Bing, and studio outreach session
+- Checked Google Search Console: sitemap showing 2,321 pages discovered, status Success, last read Apr 10
+- Requested priority indexing on 4 key URLs: homepage, `/pottery-classes/us/`, `/pottery-classes/au/`, `/pottery-classes/ca/`
+- Submitted to Bing Webmaster Tools: verified via CNAME DNS record added in Porkbun, sitemap submitted — status Processing (normal)
+- Checked Core Web Vitals: not enough real-user data yet (site too new); PageSpeed Insights shows 99–100 on both mobile and desktop
+- GA4 at day 7: 41 direct sessions, 1 organic search session (early positive signal), 2,321 sitemap URLs known to Google
+- Set up Porkbun email forwarding: `hello@clayfinder.com` → `gerardmactal@germacdirectories.com` (no mailbox needed — replies forward to existing inbox)
+- Created `scripts/outreach.ts` — studio email outreach script:
+  - Queries Supabase for all listings with emails
+  - Sends via Resend from `ClayFinder <hello@clayfinder.com>` with `reply-to: hello@clayfinder.com`
+  - Batches 90/day to stay within Resend free tier (100/day limit)
+  - Supports `--dry-run` (preview) and `--offset=N` (daily batching) flags
+  - After each run, prints the exact command to run the next day
+- Ran first outreach batch (90 studios) successfully
+
 ### 2026-04-07 — SEO foundations session
 - Added trust pages: About, Contact, Privacy Policy, Terms of Service + sitewide footer with links
 - Added trust pages to sitemap (`app/sitemap.ts`)
@@ -324,14 +339,18 @@ No slug column in Supabase — computed at runtime. Works fine for city-level re
 
 ### SEO & Technical (in progress / next)
 - [x] Review DataForSEO audit report and fix real issues (canonical tags, thin content, duplicate keys)
-- [ ] Monitor Search Console Coverage report (3–5 days after sitemap submission)
-- [ ] Verify FAQPage and BreadcrumbList schema via Google Rich Results Test
-- [ ] Deploy all changes to Vercel
+- [x] Monitor Search Console Coverage report — checked Apr 12, 2,321 pages discovered, processing
+- [x] Verify FAQPage and BreadcrumbList schema via Google Rich Results Test — passed
+- [x] Deploy all changes to Vercel
+- [x] Submit to Bing Webmaster Tools
+- [ ] Monitor Search Console Coverage in 1–2 weeks for indexed page count
+- [ ] Check GA4 organic session count — target: growing week over week
 
-### Growth (weeks 2–4+)
-- [ ] Start backlink outreach (2–3 weeks post-launch, after checking Search Console for early rankings)
-  - Strategy: link swaps with competing directories
-  - Reddit mentions: r/Pottery, r/Ceramics
+### Growth (in progress)
+- [x] Studio email outreach: first batch of 90 sent on 2026-04-12 via `scripts/outreach.ts`
+  - Run daily with `--offset=90`, `--offset=180`, etc. until all studios contacted
+  - Replies land in gerardmactal@germacdirectories.com (forwarded from hello@clayfinder.com)
+- [ ] Social media engagement (clayfinder-growth repo — agent running)
 - [ ] Design polish pass
 - [ ] User auth + business dashboard (claimed listings — natural upsell once leads flowing)
 - [ ] Apply for display ads once traffic threshold is reached (Google AdSense first, Mediavine at ~50k sessions/month)
