@@ -18,3 +18,6 @@ Next run: npx tsx scripts/outreach.ts --offset=540
 
 [2026-04-19] Sent: 90 | Failed: 0 | Offset: 540
 Next run: npx tsx scripts/outreach.ts --offset=630
+
+[2026-04-20] Sent: 90 | Failed: 0 | Offset: 630
+Next run: npx tsx scripts/outreach.ts --offset=720
